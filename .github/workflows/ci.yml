@@ -21,6 +21,13 @@ jobs:
         with:
           dotnet-version: '10.0.400'
 
+      - name: Install FFmpeg test dependency
+        shell: pwsh
+        run: |
+          choco install ffmpeg --yes --no-progress
+          ffmpeg -hide_banner -version
+          ffprobe -hide_banner -version
+
       - name: Build
         run: dotnet build --configuration Release --no-incremental
 
