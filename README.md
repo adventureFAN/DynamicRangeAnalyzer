@@ -81,6 +81,9 @@ dotnet test .\DRAnalyzer.Tests\DRAnalyzer.Tests.csproj --filter "Category!=Exter
 
 The external-reference/preservation suite intentionally requires local reference music and environment variables. See [docs/TESTING.md](docs/TESTING.md).
 
+## Credits
+
+Dynamic Range Analyzer is developed by **adventureFAN** with extensive development assistance from **OpenAI ChatGPT**, including software architecture, implementation, testing strategy, code review, documentation, metadata-safety hardening and release engineering.
 ## License
 
 Dynamic Range Analyzer is open source under the [MIT License](LICENSE).
