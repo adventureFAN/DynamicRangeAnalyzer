@@ -11,6 +11,13 @@ Set-StrictMode -Version Latest
 
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $ffmpegArtifact = (Resolve-Path $FfmpegArtifactDir).Path
+$ffmpegToolDir = Join-Path $ffmpegArtifact 'runtime\ffmpeg'
+$ffmpegToolExe = Join-Path $ffmpegToolDir 'ffmpeg.exe'
+$ffprobeToolExe = Join-Path $ffmpegToolDir 'ffprobe.exe'
+
+if (-not (Test-Path -LiteralPath $ffmpegToolExe) -or -not (Test-Path -LiteralPath $ffprobeToolExe)) {
+    throw 'Release-test FFmpeg directory does not contain ffmpeg.exe and ffprobe.exe.'
+}
 $output = [System.IO.Path]::GetFullPath($OutputDir)
 $version = '1.0.0'
 $packageName = 'Dynamic-Range-Analyzer-' + $version + '-win-x64'
@@ -25,12 +32,34 @@ New-Item -ItemType Directory -Path $packageRoot, $publishDir, $releaseDir -Force
 
 Push-Location $repo
 try {
-    dotnet test '.\DRAnalyzer.Tests\DRAnalyzer.Tests.csproj' `
-        --configuration Release `
-        --filter 'Category!=ExternalReference'
+    # Run the portable suite against the exact FFmpeg/ffprobe runtime that will
+    # be bundled in this release candidate, not against a machine-wide install.
+    $originalPath = $env:PATH
+    try {
+        $env:PATH = $ffmpegToolDir + [System.IO.Path]::PathSeparator + $originalPath
 
-    if ($LASTEXITCODE -ne 0) {
-        throw 'Portable test suite failed.'
+        Write-Host 'Release-test FFmpeg directory:'
+        Write-Host ('  ' + $ffmpegToolDir)
+        & $ffmpegToolExe -hide_banner -version
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Release-test ffmpeg.exe could not be executed.'
+        }
+
+        & $ffprobeToolExe -hide_banner -version
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Release-test ffprobe.exe could not be executed.'
+        }
+
+        dotnet test '.\DRAnalyzer.Tests\DRAnalyzer.Tests.csproj' `
+            --configuration Release `
+            --filter 'Category!=ExternalReference'
+
+        if ($LASTEXITCODE -ne 0) {
+            throw 'Portable test suite failed.'
+        }
+    }
+    finally {
+        $env:PATH = $originalPath
     }
 
     dotnet publish '.\DRAnalyzer.App\DRAnalyzer.App.csproj' `
