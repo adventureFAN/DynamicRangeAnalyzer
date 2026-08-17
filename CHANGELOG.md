@@ -2,9 +2,9 @@
 
 All notable changes to the project are documented here.
 
-The first public release is targeted as **1.0.0**. Until the release artifact is frozen and published, changes remain under `[Unreleased]`.
+The first public release is **1.0.0**, published on 2026-08-17.
 
-## [Unreleased]
+## [1.0.0] - 2026-08-17
 
 ### Analysis
 - Classic Dynamic Range analysis with track DR, peak and RMS.
@@ -57,8 +57,8 @@ The first public release is targeted as **1.0.0**. Until the release artifact is
 - First public version metadata set to **1.0.0**.
 - Source code licensed under the MIT License.
 - Copyright notice set to `Copyright (c) 2026 adventureFAN`.
-- Planned public repository: `adventureFAN/DynamicRangeAnalyzer`.
-- FFmpeg/ffprobe explicitly documented as separately licensed third-party runtime components; the exact distributable runtime build remains a release gate.
+- Public repository: `adventureFAN/DynamicRangeAnalyzer`.
+- FFmpeg/ffprobe explicitly documented as separately licensed third-party runtime components; the exact distributable runtime build is produced and reviewed as part of the release workflow.
 
 
 ### User-facing error language
@@ -71,8 +71,8 @@ The first public release is targeted as **1.0.0**. Until the release artifact is
 - Added deterministic bundled-runtime discovery with PATH fallback for development.
 - Added a pinned .NET 10.0.400 `global.json`.
 - Added GitHub Actions CI for Release build + portable tests.
-- Added manual release-candidate workflow that builds FFmpeg 9.0 from its signed official source with GPL/nonfree components disabled, then creates a self-contained Windows x64 portable ZIP.
-- Release workflow publishes artifacts only; public release remains gated by a clean-machine test of the exact artifact.
+- Added manual release workflow that builds FFmpeg 9.0 from its signed official source with GPL/nonfree components disabled, then creates a framework-dependent Windows x64 portable ZIP requiring Microsoft .NET 10 Desktop Runtime (x64).
+- Release workflow publishes candidate artifacts only; public publication follows review and smoke-testing of the exact generated artifact.
 
 ### Documentation / source hygiene
 - Added README, changelog, testing, format support, metadata safety, pre-release review, release checklist, third-party notes and development handoff.

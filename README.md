@@ -1,6 +1,6 @@
 ﻿# Dynamic Range Analyzer
 
-> **Dynamic Range Analyzer 1.0.0** is the first public release target. `DRAnalyzer` remains the internal solution/namespace/settings identifier.
+> **Dynamic Range Analyzer 1.0.0** is the first public release. `DRAnalyzer` remains the internal solution/namespace/settings identifier.
 
 Dynamic Range Analyzer is a Windows WPF application for classic Dynamic Range (DR) analysis of music files. It analyzes track DR, album DR, peak and RMS values, reads existing DR metadata, and can safely write/update/remove its own DR fields for explicitly supported formats.
 
@@ -84,6 +84,7 @@ The external-reference/preservation suite intentionally requires local reference
 ## Credits
 
 Dynamic Range Analyzer is developed by **adventureFAN** with extensive development assistance from **OpenAI ChatGPT**, including software architecture, implementation, testing strategy, code review, documentation, metadata-safety hardening and release engineering.
+
 ## License
 
 Dynamic Range Analyzer is open source under the [MIT License](LICENSE).
@@ -94,13 +95,13 @@ FFmpeg/ffprobe are separate third-party programs and are **not** covered by the 
 
 ## Windows release packaging
 
-The 1.0.0 Windows release is prepared as a framework-dependent `win-x64` portable ZIP. **Microsoft .NET 10 Desktop Runtime (x64) is required** and is not bundled with the application. Packaged builds include and prefer the bundled `runtime/ffmpeg` tools; source/development runs can still use `ffmpeg` and `ffprobe` from `PATH`. The release-candidate workflow builds FFmpeg 9.0 from the official signed source with GPL/nonfree components disabled and keeps the exact source/signature alongside the candidate artifact.
+The 1.0.0 Windows release is distributed as a framework-dependent `win-x64` portable ZIP. **Microsoft .NET 10 Desktop Runtime (x64) is required** and is not bundled with the application. Packaged builds include and prefer the bundled `runtime/ffmpeg` tools; source/development runs can still use `ffmpeg` and `ffprobe` from `PATH`. The release-candidate workflow builds FFmpeg 9.0 from the official signed source with GPL/nonfree components disabled and keeps the exact source/signature alongside the candidate artifact.
 
 ## Release status
 
 The codebase has undergone multiple pre-release review passes, including metadata ownership, process timeouts, FLAC write preservation validation, exception handling and writer cleanup hardening.
 
-Before a public release, the remaining decisions/tasks are tracked in [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md). The public name, version and source-code license are fixed. Do **not** publish a binary package until the exact FFmpeg/ffprobe runtime build and redistribution package have been finalized and the exact release artifact has passed its final smoke tests.
+Release validation and future maintenance checks are tracked in [docs/RELEASE_CHECKLIST.md](docs/RELEASE_CHECKLIST.md). Binary releases are built by the release workflow, reviewed as exact artifacts and published together with SHA-256 checksums and the corresponding FFmpeg source/signature material.
 
 ## Documentation
 

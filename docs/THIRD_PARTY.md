@@ -12,7 +12,7 @@ Dynamic Range Analyzer invokes `ffmpeg` and `ffprobe` as separate executable pro
 
 For the public 1.0.0 binary package, do **not** reuse or silently bundle the current development FFmpeg installation.
 
-The 1.0.0 release-candidate packaging is designed as follows:
+The 1.0.0 release packaging is as follows:
 
 - ship `ffmpeg.exe` and `ffprobe.exe` as clearly separate third-party executables;
 - build FFmpeg **9.0** from the official FFmpeg release source tarball in GitHub Actions;
@@ -27,9 +27,9 @@ The 1.0.0 release-candidate packaging is designed as follows:
 - make the exact corresponding FFmpeg source and any build scripts/configuration used for the distributed binaries available as required by the applicable FFmpeg license;
 - do not describe FFmpeg as being licensed under Dynamic Range Analyzer's MIT license.
 
-The build recipe lives in `scripts/build-ffmpeg-runtime.sh` and the release-candidate workflow in `.github/workflows/build-release-package.yml`. The workflow publishes the exact FFmpeg source archive and signature next to the Windows release candidate.
+The build recipe lives in `scripts/build-ffmpeg-runtime.sh` and the release workflow in `.github/workflows/build-release-package.yml`. The workflow publishes the exact FFmpeg source archive and signature next to the Windows release artifact.
 
-Until the resulting runtime artifact has been produced, inspected and smoke-tested, FFmpeg packaging remains a **release blocker**.
+For every public binary release, the exact generated FFmpeg runtime artifact, configure flags, corresponding source archive, signature and checksums are reviewed before publication. A rebuilt runtime is treated as a new artifact and must be reviewed again.
 
 The development machine may use a different FFmpeg build for testing; that development binary must not be copied into a public release merely because the application works with it.
 
@@ -41,6 +41,6 @@ The development machine may use a different FFmpeg build for testing; that devel
 
 Dynamic Range Analyzer targets .NET 10 / WPF.
 
-The Windows 1.0.0 release candidate uses a **framework-dependent .NET 10 win-x64 publish** inside a portable ZIP. The **Microsoft .NET 10 Desktop Runtime (x64) must be installed separately** on the target system; the full .NET runtime is not bundled with Dynamic Range Analyzer.
+The Windows 1.0.0 release uses a **framework-dependent .NET 10 win-x64 publish** inside a portable ZIP. The **Microsoft .NET 10 Desktop Runtime (x64) must be installed separately** on the target system; the full .NET runtime is not bundled with Dynamic Range Analyzer.
 
 The package retains the .NET product license and third-party notices for transparency. Microsoft .NET and its components retain their own distribution terms and are not relicensed under Dynamic Range Analyzer's MIT license.

@@ -16,7 +16,7 @@ This checklist is intentionally conservative because the application can modify 
 ## B. FFmpeg / runtime / packaging
 
 - [x] Distribution direction: bundle `ffmpeg.exe`/`ffprobe.exe` as separate third-party executables for a simple end-user package.
-- [ ] Produce and review the exact FFmpeg runtime build: no `--enable-gpl`, no `--enable-nonfree`, target LGPL v2.1+.
+- [x] Produce and review the exact FFmpeg runtime build: no `--enable-gpl`, no `--enable-nonfree`, target LGPL v2.1+.
 - [x] `docs/THIRD_PARTY.md` defines the release policy; update it again with exact FFmpeg version/config/source location when the runtime build is frozen.
 - [x] Packaging choice: framework-dependent .NET 10 `win-x64` publish; requires Microsoft .NET 10 Desktop Runtime (x64).
 - [x] 1.0.0 packaging choice: portable ZIP; no installer for the first release.
@@ -80,10 +80,10 @@ For every format, verify:
 
 - [ ] Source archive contains README/changelog/docs.
 - [ ] Source archive excludes `bin`, `obj`, `.vs`, `.git` metadata when making a clean handoff archive, local `backup-*` folders and test output.
-- [ ] Release binary package excludes private test/reference music.
-- [ ] Release binary package excludes development-only tools not covered by the final distribution plan.
-- [ ] Generate SHA-256 checksums for published artifacts.
-- [ ] Test the exact artifact that will be uploaded; do not rebuild after the final smoke test without retesting.
+- [x] Release binary package excludes private test/reference music.
+- [x] Release binary package excludes development-only tools not covered by the final distribution plan.
+- [x] Generate SHA-256 checksums for published artifacts.
+- [x] Test the exact release-candidate artifact; any rebuild after this checkpoint must be re-reviewed before publication.
 - [ ] Update `docs/HANDOFF.md` to the exact released commit/snapshot/version.
 - [ ] Create final release notes from `CHANGELOG.md`.
 
