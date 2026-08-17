@@ -41,6 +41,6 @@ The development machine may use a different FFmpeg build for testing; that devel
 
 Dynamic Range Analyzer targets .NET 10 / WPF.
 
-The Windows 1.0.0 release candidate uses a **self-contained .NET 10 win-x64 publish** inside a portable ZIP, so users do not need to install the .NET Desktop Runtime separately. Because a self-contained Windows application redistributes .NET runtime components, the package includes the authoritative .NET product license and third-party notices from the exact SDK/runtime distribution used by the workflow.
+The Windows 1.0.0 release candidate uses a **framework-dependent .NET 10 win-x64 publish** inside a portable ZIP. The **Microsoft .NET 10 Desktop Runtime (x64) must be installed separately** on the target system; the full .NET runtime is not bundled with Dynamic Range Analyzer.
 
-Those .NET components retain their own distribution terms; they are not relicensed under Dynamic Range Analyzer's MIT license.
+The package retains the .NET product license and third-party notices for transparency. Microsoft .NET and its components retain their own distribution terms and are not relicensed under Dynamic Range Analyzer's MIT license.

@@ -100,7 +100,7 @@ try {
     dotnet publish '.\DRAnalyzer.App\DRAnalyzer.App.csproj' `
         --configuration Release `
         --runtime win-x64 `
-        --self-contained true `
+        --self-contained false `
         -p:PublishSingleFile=false `
         -p:DebugType=None `
         -p:DebugSymbols=false `
@@ -200,6 +200,8 @@ $buildInfo = @(
     ('Repository commit: ' + $env:GITHUB_SHA),
     ('Build date UTC: ' + [DateTime]::UtcNow.ToString('yyyy-MM-ddTHH:mm:ssZ')),
     ('dotnet SDK: ' + ((dotnet --version | Out-String).Trim())),
+    'Deployment: framework-dependent',
+    'Required runtime: Microsoft .NET 10 Desktop Runtime (x64)',
     '',
     'FFmpeg:',
     $ffmpegVersion,

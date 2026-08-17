@@ -59,7 +59,7 @@ Requirements for the current source tree:
 
 - Windows
 - .NET 10 SDK / Windows Desktop workload
-- `ffmpeg` and `ffprobe` available to the development build (final distribution strategy is not decided)
+- `ffmpeg` and `ffprobe` available via `PATH` for source/development runs; packaged builds use the bundled `runtime\ffmpeg` tools
 
 Build:
 
@@ -94,7 +94,7 @@ FFmpeg/ffprobe are separate third-party programs and are **not** covered by the 
 
 ## Windows release packaging
 
-The 1.0.0 Windows release is prepared as a self-contained `win-x64` portable ZIP. Packaged builds prefer the bundled `runtime/ffmpeg` tools; source/development runs can still use `ffmpeg` and `ffprobe` from `PATH`. The release-candidate workflow builds FFmpeg 9.0 from the official signed source with GPL/nonfree components disabled and keeps the exact source/signature alongside the candidate artifact.
+The 1.0.0 Windows release is prepared as a framework-dependent `win-x64` portable ZIP. **Microsoft .NET 10 Desktop Runtime (x64) is required** and is not bundled with the application. Packaged builds include and prefer the bundled `runtime/ffmpeg` tools; source/development runs can still use `ffmpeg` and `ffprobe` from `PATH`. The release-candidate workflow builds FFmpeg 9.0 from the official signed source with GPL/nonfree components disabled and keeps the exact source/signature alongside the candidate artifact.
 
 ## Release status
 

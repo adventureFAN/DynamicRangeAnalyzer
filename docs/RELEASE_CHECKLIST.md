@@ -18,7 +18,7 @@ This checklist is intentionally conservative because the application can modify 
 - [x] Distribution direction: bundle `ffmpeg.exe`/`ffprobe.exe` as separate third-party executables for a simple end-user package.
 - [ ] Produce and review the exact FFmpeg runtime build: no `--enable-gpl`, no `--enable-nonfree`, target LGPL v2.1+.
 - [x] `docs/THIRD_PARTY.md` defines the release policy; update it again with exact FFmpeg version/config/source location when the runtime build is frozen.
-- [x] Packaging choice: self-contained .NET 10 `win-x64` publish.
+- [x] Packaging choice: framework-dependent .NET 10 `win-x64` publish; requires Microsoft .NET 10 Desktop Runtime (x64).
 - [x] 1.0.0 packaging choice: portable ZIP; no installer for the first release.
 - [x] Runtime discovery: prefer `runtime\ffmpeg\ffmpeg.exe` / `ffprobe.exe` beside the app, then fall back to PATH for development.
 - [x] Missing-runtime errors remain English and now cover reinstalling the packaged runtime or PATH fallback.
