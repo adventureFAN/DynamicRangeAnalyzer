@@ -9,6 +9,41 @@
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
+function Invoke-NativeText {
+    param(
+        [Parameter(Mandatory = $true)]
+        [string]$FilePath,
+
+        [Parameter(Mandatory = $true)]
+        [string[]]$Arguments
+    )
+
+    # Windows PowerShell 5.1 can turn a native program's stderr output into
+    # NativeCommandError records when ErrorActionPreference is Stop.
+    # FFmpeg writes normal informational output such as -version/-buildconf
+    # to stderr, so capture it under Continue and return the real exit code.
+    $previousErrorActionPreference = $ErrorActionPreference
+
+    try {
+        $ErrorActionPreference = 'Continue'
+
+        $lines = @(
+            & $FilePath @Arguments 2>&1 |
+                ForEach-Object { $_.ToString() }
+        )
+
+        $exitCode = $LASTEXITCODE
+    }
+    finally {
+        $ErrorActionPreference = $previousErrorActionPreference
+    }
+
+    [pscustomobject]@{
+        ExitCode = $exitCode
+        Text = ($lines -join [Environment]::NewLine).Trim()
+    }
+}
+
 $repo = (Resolve-Path (Join-Path $PSScriptRoot '..')).Path
 $ffmpegArtifact = (Resolve-Path $FfmpegArtifactDir).Path
 $ffmpegToolDir = Join-Path $ffmpegArtifact 'runtime\ffmpeg'
@@ -110,20 +145,35 @@ Copy-Item -LiteralPath $dotnetNotices -Destination $dotnetLicenseTarget -Force
 $ffmpegExe = Join-Path $runtimeTarget 'ffmpeg.exe'
 $ffprobeExe = Join-Path $runtimeTarget 'ffprobe.exe'
 
-$ffmpegVersion = (& $ffmpegExe -version 2>&1 | Out-String).Trim()
-if ($LASTEXITCODE -ne 0) {
+$ffmpegVersionResult =
+    Invoke-NativeText `
+        -FilePath $ffmpegExe `
+        -Arguments @('-version')
+
+if ($ffmpegVersionResult.ExitCode -ne 0) {
     throw 'Bundled ffmpeg.exe could not be executed.'
 }
+$ffmpegVersion = $ffmpegVersionResult.Text
 
-$ffmpegBuildConf = (& $ffmpegExe -buildconf 2>&1 | Out-String).Trim()
-if ($LASTEXITCODE -ne 0) {
+$ffmpegBuildConfResult =
+    Invoke-NativeText `
+        -FilePath $ffmpegExe `
+        -Arguments @('-buildconf')
+
+if ($ffmpegBuildConfResult.ExitCode -ne 0) {
     throw 'Bundled ffmpeg.exe build configuration could not be read.'
 }
+$ffmpegBuildConf = $ffmpegBuildConfResult.Text
 
-$ffprobeVersion = (& $ffprobeExe -version 2>&1 | Out-String).Trim()
-if ($LASTEXITCODE -ne 0) {
+$ffprobeVersionResult =
+    Invoke-NativeText `
+        -FilePath $ffprobeExe `
+        -Arguments @('-version')
+
+if ($ffprobeVersionResult.ExitCode -ne 0) {
     throw 'Bundled ffprobe.exe could not be executed.'
 }
+$ffprobeVersion = $ffprobeVersionResult.Text
 
 if ($ffmpegBuildConf -match '--enable-gpl' -or $ffmpegBuildConf -match '--enable-nonfree') {
     throw 'FFmpeg release runtime unexpectedly enables GPL or nonfree components.'
