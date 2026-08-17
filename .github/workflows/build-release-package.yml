@@ -27,7 +27,7 @@ jobs:
             gnupg
 
       - name: Build FFmpeg runtime
-        run: ./scripts/build-ffmpeg-runtime.sh
+        run: bash ./scripts/build-ffmpeg-runtime.sh
 
       - name: Upload FFmpeg runtime and source
         uses: actions/upload-artifact@v7
