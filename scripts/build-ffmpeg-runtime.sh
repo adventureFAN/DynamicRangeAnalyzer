@@ -41,6 +41,7 @@ CONFIGURE_FLAGS=(
     "--cross-prefix=x86_64-w64-mingw32-"
     "--enable-cross-compile"
     "--disable-autodetect"
+    "--enable-zlib"
     "--disable-network"
     "--disable-debug"
     "--disable-doc"
@@ -59,6 +60,14 @@ make install
 cp "${INSTALL_DIR}/bin/ffmpeg.exe" "${OUTPUT_DIR}/runtime/ffmpeg/ffmpeg.exe"
 cp "${INSTALL_DIR}/bin/ffprobe.exe" "${OUTPUT_DIR}/runtime/ffmpeg/ffprobe.exe"
 cp LICENSE.md COPYING.LGPLv2.1 COPYING.LGPLv3 "${OUTPUT_DIR}/licenses/ffmpeg/"
+
+ZLIB_COPYRIGHT="/usr/share/doc/libz-mingw-w64-dev/copyright"
+if [[ ! -f "${ZLIB_COPYRIGHT}" ]]; then
+    echo "zlib copyright/license notice was not found." >&2
+    exit 1
+fi
+cp "${ZLIB_COPYRIGHT}" "${OUTPUT_DIR}/licenses/ffmpeg/ZLIB-COPYRIGHT.txt"
+
 cp "${WORK_DIR}/${FFMPEG_ARCHIVE}" "${OUTPUT_DIR}/source/"
 cp "${WORK_DIR}/${FFMPEG_SIGNATURE}" "${OUTPUT_DIR}/source/"
 
@@ -68,6 +77,7 @@ cp "${WORK_DIR}/${FFMPEG_SIGNATURE}" "${OUTPUT_DIR}/source/"
     echo "Source URL: ${FFMPEG_BASE_URL}/${FFMPEG_ARCHIVE}"
     echo "Signature URL: ${FFMPEG_BASE_URL}/${FFMPEG_SIGNATURE}"
     echo "Release signing key fingerprint: ${EXPECTED_RELEASE_KEY}"
+    echo "zlib cross-build package: $(dpkg-query -W -f='${Version}' libz-mingw-w64-dev)"
     echo
     echo "Configure command:"
     printf './configure'

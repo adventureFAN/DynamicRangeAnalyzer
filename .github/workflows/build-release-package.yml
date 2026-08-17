@@ -20,6 +20,7 @@ jobs:
           sudo apt-get install -y \
             binutils-mingw-w64-x86-64 \
             gcc-mingw-w64-x86-64 \
+            libz-mingw-w64-dev \
             make \
             nasm \
             xz-utils \

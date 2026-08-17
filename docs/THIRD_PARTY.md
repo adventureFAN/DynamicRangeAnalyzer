@@ -19,6 +19,8 @@ The 1.0.0 release-candidate packaging is designed as follows:
 - verify the official release signature before compiling;
 - cross-compile Windows x64 with MinGW-w64 and `--disable-autodetect`;
 - explicitly use `--disable-gpl` and `--disable-nonfree`;
+- explicitly enable the zlib cross-build dependency required by FFmpeg's PNG encoder so the release-runtime artwork/metadata safety tests can use PNG fixtures;
+- include the zlib copyright/license notice alongside the FFmpeg notices;
 - keep FFmpeg under its LGPL v2.1-or-later terms;
 - record the exact FFmpeg version and configure/build options used;
 - include the applicable FFmpeg/LGPL license notices in the binary package;
