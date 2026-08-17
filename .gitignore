@@ -1,0 +1,31 @@
+# .NET build outputs
+**/bin/
+**/obj/
+artifacts/
+publish/
+
+# Visual Studio / IDE
+.vs/
+*.user
+*.suo
+.idea/
+.vscode/
+
+# Tests / coverage
+TestResults/
+coverage/
+coverage.*
+*.coverage
+*.coveragexml
+
+# Local replacement-script backups
+backup-*/
+
+# OS noise
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Writer artifacts should never be source-controlled if a test leaves one behind
+*.dranalyzer.tmp
+*.dranalyzer.backup

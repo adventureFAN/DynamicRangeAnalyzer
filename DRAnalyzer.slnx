@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DRAnalyzer.App/DRAnalyzer.App.csproj" />
+  <Project Path="DRAnalyzer.Core/DRAnalyzer.Core.csproj" />
+  <Project Path="DRAnalyzer.Tests/DRAnalyzer.Tests.csproj" />
+</Solution>

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\DRAnalyzer.Core\DRAnalyzer.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Assets\app_icon.ico" />
+    <None Remove="Assets\app_icon_256.png" />
+    <Resource Include="Assets\app_icon.ico" />
+    <Resource Include="Assets\app_icon_256.png" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Assets\app_icon.ico</ApplicationIcon>
+    <AssemblyName>DynamicRangeAnalyzer</AssemblyName>
+    <RootNamespace>DRAnalyzer.App</RootNamespace>
+    <Product>Dynamic Range Analyzer</Product>
+    <Title>Dynamic Range Analyzer</Title>
+    <Description>Classic Dynamic Range (DR) analysis for music files.</Description>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Authors>adventureFAN</Authors>
+    <Copyright>Copyright © 2026 adventureFAN</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/adventureFAN/DynamicRangeAnalyzer</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>
